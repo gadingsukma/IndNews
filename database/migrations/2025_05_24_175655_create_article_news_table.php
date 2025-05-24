@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banner_advertisements', function (Blueprint $table) {
+        Schema::create('article_news', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
-            $table->string('type');
+            $table->string('name');
+            $table->string('content');
             $table->string('thumbnail');
-            $table->enum('is_active', ['active', 'not_active'])->default('not_active');
+            $table->enum('is_featured', ['featured', 'not_featured'])->default('not_featured');
+            $table->foreignId('category_id')->constrained()->cascadesOnDelete();
+            $table->foreignId('author_id')->constrained()->cascadesOnDelete();
+            $table->string('slug')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banner_advertisements');
+        Schema::dropIfExists('article_news');
     }
 };
