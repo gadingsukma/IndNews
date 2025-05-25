@@ -25,16 +25,26 @@ class BannerAdvertisementResource extends Resource
       ->schema([
         Forms\Components\TextInput::make('link')
           ->required()
-          ->url()
-          ->maxLength(255),
-
-        Forms\Components\TextInput::make('type')
-          ->required()
+          ->activeUrl()
           ->maxLength(255),
 
         Forms\Components\FileUpload::make('thumbnail')
           ->required()
           ->image(),
+
+        Forms\Components\Select::make('is_active')
+          ->options([
+            'active' => 'Active',
+            'not_active' => 'Not Active',
+          ])
+          ->required(),
+
+        Forms\Components\Select::make('type')
+          ->options([
+            'banner' => 'Banner',
+            'square' => 'Square',
+          ]),
+
       ]);
   }
 
@@ -43,15 +53,24 @@ class BannerAdvertisementResource extends Resource
     return $table
       ->columns([
         Tables\Columns\TextColumn::make('link')
-          ->searchable()
-          ->sortable(),
+          ->searchable(),
+
+        Tables\Columns\TextColumn::make('is_active')
+          ->badge()
+          ->color(fn(string $state): string => match ($state) {
+            'active' => 'success',
+            'not_active' => 'danger',
+            // default => 'secondary',
+          })
+          ->sortable()
+          ->searchable(),
 
         Tables\Columns\TextColumn::make('type')
           ->searchable()
           ->sortable(),
 
-        Tables\Columns\ImageColumn::make('thumbnail')
-          ->circular(),
+        Tables\Columns\ImageColumn::make('thumbnail'),
+
       ])
       ->filters([
         //
