@@ -59,7 +59,7 @@ class BannerAdvertisementResource extends Resource
           ->badge()
           ->color(fn(string $state): string => match ($state) {
             'active' => 'success',
-            'not_active' => 'danger',
+            'not_active' => 'warning',
             // default => 'secondary',
           })
           ->sortable()
