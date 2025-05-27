@@ -2,33 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArticleNews;
+use App\Models\Author;
+use App\Models\BannerAdvertisement;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class frontController extends Controller
 {
-    public function index()
-    {
-        return view('front.index');
-    }
+  public function index()
+  {
+    $categories = Category::all();
 
-    public function details($slug)
-    {
-        return view('front.details', compact('slug'));
-    }
+    $articles = ArticleNews::with(['category'])
+      ->where('is_featured', 'not_featured')
+      ->latest()
+      ->take(3)
+      ->get();
 
-    public function category($slug)
-    {
-        return view('front.category', compact('slug'));
-    }
+    $featured_articles = ArticleNews::with(['category'])
+      ->where('is_featured', 'featured')
+      ->latest()
+      ->take(3)
+      ->get();
 
-    public function author($slug)
-    {
-        return view('front.author', compact('slug'));
-    }
+    $authors = Author::all();
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        return view('front.search', compact('query'));
-    }
+    $bannerAds = BannerAdvertisement::where('is_active', 'active')
+      ->where('type', 'banner')
+      ->inRandomOrder()
+      // ->take(1)
+      ->first();
+
+    return view('front.index', compact('categories', 'articles', 'authors', 'featured_articles', 'bannerAds'));
+  }
+
+  public function details($slug)
+  {
+    return view('front.details', compact('slug'));
+  }
+
+  public function category($slug)
+  {
+    return view('front.category', compact('slug'));
+  }
+
+  public function author($slug)
+  {
+    return view('front.author', compact('slug'));
+  }
+
+  public function search(Request $request)
+  {
+    $query = $request->input('query');
+    return view('front.search', compact('query'));
+  }
 }
