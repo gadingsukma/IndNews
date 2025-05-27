@@ -48,7 +48,35 @@ class frontController extends Controller
       ->inRandomOrder()
       ->first();
 
+    $opini_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Opini');
+    })
+      ->where('is_featured', 'not_featured')
+      ->latest()
+      ->take(6)
+      ->get();
 
+    $opini_featured_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Opini');
+    })
+      ->where('is_featured', 'featured')
+      ->inRandomOrder()
+      ->first();
+
+    $pendidikan_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Pendidikan');
+    })
+      ->where('is_featured', 'not_featured')
+      ->latest()
+      ->take(6)
+      ->get();
+
+    $pendidikan_featured_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Pendidikan');
+    })
+      ->where('is_featured', 'featured')
+      ->inRandomOrder()
+      ->first();
 
     return view('front.index', compact(
       'categories',
@@ -57,7 +85,11 @@ class frontController extends Controller
       'featured_articles',
       'bannerAds',
       'kesehatan_articles',
-      'kesehatan_featured_articles'
+      'kesehatan_featured_articles',
+      'opini_articles',
+      'opini_featured_articles',
+      'pendidikan_articles',
+      'pendidikan_featured_articles'
     ));
   }
 
