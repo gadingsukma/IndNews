@@ -31,10 +31,34 @@ class frontController extends Controller
     $bannerAds = BannerAdvertisement::where('is_active', 'active')
       ->where('type', 'banner')
       ->inRandomOrder()
-      // ->take(1)
       ->first();
 
-    return view('front.index', compact('categories', 'articles', 'authors', 'featured_articles', 'bannerAds'));
+    $kesehatan_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Kesehatan');
+    })
+      ->where('is_featured', 'not_featured')
+      ->latest()
+      ->take(6)
+      ->get();
+
+    $kesehatan_featured_articles = ArticleNews::whereHas('category', function ($query) {
+      $query->where('name', 'Kesehatan');
+    })
+      ->where('is_featured', 'featured')
+      ->inRandomOrder()
+      ->first();
+
+
+
+    return view('front.index', compact(
+      'categories',
+      'articles',
+      'authors',
+      'featured_articles',
+      'bannerAds',
+      'kesehatan_articles',
+      'kesehatan_featured_articles'
+    ));
   }
 
   public function details($slug)

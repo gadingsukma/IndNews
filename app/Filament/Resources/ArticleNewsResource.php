@@ -57,10 +57,6 @@ class ArticleNewsResource extends Resource
           ->image()
           ->required(),
 
-        // Forms\Components\Textarea::make('content')
-        //   ->required()
-        //   ->maxLength(65535),
-
         Forms\Components\RichEditor::make('content')
           ->required()
           ->columnSpanFull()
@@ -146,11 +142,6 @@ class ArticleNewsResource extends Resource
         //   ->label('Author')
         //   ->sortable()
         //   ->searchable(),
-
-        // Tables\Columns\BooleanColumn::make('is_featured')
-        //   ->label('Featured')
-        //   ->trueIcon('heroicon-o-check-circle')
-        //   ->falseIcon('heroicon-o-x-circle'),
 
         Tables\Columns\TextColumn::make('is_featured')
           ->badge()

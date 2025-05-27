@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('article_news', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('content');
+            $table->text('content');
             $table->string('thumbnail');
             $table->enum('is_featured', ['featured', 'not_featured'])->default('not_featured');
             $table->foreignId('category_id')->constrained()->cascadesOnDelete();
