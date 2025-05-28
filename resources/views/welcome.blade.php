@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>IndNews</title>
+        <link rel="shortcut icon" href="<?php echo asset('assets/images/logos/logo-indnews.png')?> " type="image/x-icon">
+        <!-- <link rel="icon" type="image/png" href="/assets/images/logos/logo-indnews.png" sizes="32x32"> -->
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
