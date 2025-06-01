@@ -98,9 +98,16 @@ class frontController extends Controller
     return view('front.details', compact('slug'));
   }
 
-  public function category($slug)
+  public function category(Category $category)
   {
-    return view('front.category', compact('slug'));
+    $categories = Category::all();
+
+    $bannerAds = BannerAdvertisement::where('is_active', 'active')
+      ->where('type', 'banner')
+      ->inRandomOrder()
+      ->first();
+
+    return view('front.category', compact('category', 'categories', 'bannerAds'));
   }
 
   public function author($slug)
