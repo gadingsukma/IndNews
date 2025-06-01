@@ -129,6 +129,11 @@ class ArticleNewsResource extends Resource
           ->searchable()
           ->sortable(),
 
+        Tables\Columns\TextColumn::make('author.name')
+          ->label('Author')
+          ->sortable()
+          ->searchable(),
+
         // Tables\Columns\TextColumn::make('slug')
         //   ->sortable()
         //   ->searchable(),
@@ -137,11 +142,6 @@ class ArticleNewsResource extends Resource
           ->label('Category')
           ->sortable()
           ->searchable(),
-
-        // Tables\Columns\TextColumn::make('author.name')
-        //   ->label('Author')
-        //   ->sortable()
-        //   ->searchable(),
 
         Tables\Columns\TextColumn::make('is_featured')
           ->badge()
@@ -152,8 +152,18 @@ class ArticleNewsResource extends Resource
           ->sortable()
           ->searchable(),
 
-        Tables\Columns\ImageColumn::make('thumbnail'),
-          // ->circular(),
+        Tables\Columns\TextColumn::make('created_at')
+          ->dateTime()
+          ->sortable()
+          ->searchable(),
+
+        Tables\Columns\TextColumn::make('updated_at')
+          ->dateTime()
+          ->sortable()
+          ->searchable(),
+
+        // Tables\Columns\ImageColumn::make('thumbnail'),
+        // ->circular(),
       ])
       ->filters([
         //
