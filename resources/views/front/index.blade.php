@@ -106,6 +106,7 @@
 
     </div>
   </section>
+
   <section id="Advertisement" class="max-w-[1130px] mx-auto flex justify-center mt-[70px]">
     <div class="flex flex-col gap-3 shrink-0 w-fit">
       <a href="{{ $bannerAds->link }}" target="_blank" rel="noopener noreferrer">
@@ -118,6 +119,7 @@
       </p>
     </div>
   </section>
+  
   <section id="Latest-entertainment" class="max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-[70px]">
     <div class="flex justify-between items-center">
       <h2 class="font-bold text-[26px] leading-[39px]">

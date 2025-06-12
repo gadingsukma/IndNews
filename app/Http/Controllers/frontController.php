@@ -93,9 +93,42 @@ class frontController extends Controller
     ));
   }
 
-  public function details($slug)
+  public function details(ArticleNews $articleNews)
   {
-    return view('front.details', compact('slug'));
+    $categories = Category::all();
+
+    $articles = ArticleNews::with(['category'])
+      ->where('is_featured', 'not_featured')
+      ->where('id', '!=', $articleNews->id)
+      ->latest()
+      ->take(3)
+      ->get();
+
+    $bannerAds = BannerAdvertisement::where('is_active', 'active')
+      ->where('type', 'banner')
+      ->inRandomOrder()
+      ->first();
+
+    $squareAds = BannerAdvertisement::where('type', 'square')
+      ->where('is_active', 'active')
+      ->inRandomOrder()
+      ->take(2)
+      ->get();
+
+    if ($squareAds->count() < 2) {
+      $squareAds_1 = $squareAds->first();
+      $squareAds_2 = $squareAds->first();
+    } else {
+      $squareAds_1 = $squareAds->get(0);
+      $squareAds_2 = $squareAds->get(1);
+    }
+
+    $authorNews = ArticleNews::where('author_id', $articleNews->author_id)
+      ->where('id', '!=', $articleNews->id)
+      ->inRandomOrder()
+      ->get();
+
+    return view('front.details', compact('articleNews', 'categories', 'bannerAds', 'articles', 'squareAds_1', 'squareAds_2', 'authorNews'));
   }
 
   public function category(Category $category)
