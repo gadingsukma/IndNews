@@ -124,7 +124,22 @@ class frontController extends Controller
 
   public function search(Request $request)
   {
-    $query = $request->input('query');
-    return view('front.search', compact('query'));
+    $request->validate([
+      'keyword' => ['required', 'string', 'max:255']
+    ]);
+
+    $categories = Category::all();
+
+    $keyword = $request->keyword;
+
+    $articles = ArticleNews::with(['category', 'author'])
+      ->where('name', 'like', '%' . $keyword . '%')->paginate((6));
+
+    $bannerAds = BannerAdvertisement::where('is_active', 'active')
+      ->where('type', 'banner')
+      ->inRandomOrder()
+      ->first();
+
+    return view('front.search', compact('articles', 'categories', 'keyword', 'bannerAds'));
   }
 }
