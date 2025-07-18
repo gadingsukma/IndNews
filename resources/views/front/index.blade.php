@@ -109,9 +109,9 @@
 
   <section id="Advertisement" class="max-w-[1130px] mx-auto flex justify-center mt-[70px]">
     <div class="flex flex-col gap-3 shrink-0 w-fit">
-      <a href="{{ $bannerAds->link }}" target="_blank" rel="noopener noreferrer">
+      <a href="{{ $bannerAds->link ?? '#' }}" target="_blank" rel="noopener noreferrer">
         <div class="w-[900px] h-[120px] flex shrink-0 border border-[#EEF0F7] rounded-2xl overflow-hidden">
-          <img src="{{ Storage::url($bannerAds->thumbnail) }}" class="object-cover w-full h-full" alt="ads" />
+          <img src="{{ Storage::url($bannerAds->thumbnail  ?? '#' ) }}" class="object-cover w-full h-full" alt="ads" />
         </div>
       </a>
       <p class="font-medium text-sm leading-[21px] text-[#A3A6AE] flex gap-1">
